@@ -2,7 +2,9 @@
     "name": "Sans titre",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "Timers": "github:microsoft/arcade-timers#v1.1.0",
+        "storyboard": "*"
     },
     "files": [
         "main.blocks",
