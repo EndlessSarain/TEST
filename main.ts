@@ -1,25 +1,32 @@
 namespace SpriteKind {
     export const Enemy2 = SpriteKind.create()
+    export const arrivé = SpriteKind.create()
+    export const curseur = SpriteKind.create()
+    export const button = SpriteKind.create()
 }
 function pickQuestion (num: number) {
-    game.showLongText(questions[0][0], DialogLayout.Top)
-    if (game.ask(questions[0][1], "" + questions[0][2] + " ou " + questions[0][3])) {
-        if (questions[0][4] == "1") {
+    game.showLongText(questions[num][0], DialogLayout.Top)
+    if (game.ask(questions[num][1], "" + questions[num][2] + " ou " + questions[num][3])) {
+        if (questions[num][4] == "1") {
             return true
         } else {
             return false
         }
     } else {
-        if (questions[0][4] == "2") {
+        if (questions[num][4] == "2") {
             return true
         } else {
             return false
         }
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.arrivé, function (sprite, otherSprite) {
+    game.over(true, effects.confetti)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy2, function (sprite, otherSprite) {
-    if (pickQuestion(1)) {
+    if (pickQuestion(randint(0, 7))) {
         otherSprite.destroy()
+        info.changeScoreBy(5)
     } else {
         otherSprite.destroy()
         info.changeScoreBy(-5)
@@ -34,17 +41,23 @@ let e4: Sprite = null
 let e3: Sprite = null
 let e2: Sprite = null
 let e1: Sprite = null
-let list = 0
+let d5: Sprite = null
+let d4: Sprite = null
+let d3: Sprite = null
+let d2: Sprite = null
+let drapeau: Sprite = null
 let ennemi: Sprite = null
 let questions: string[][] = []
+scene.setBackgroundImage(assets.image`myImage1`)
+pause(5000)
 questions = [
 ["Je danse le MIA, pas de pacotille, chemise ouverte, chaîne en ???? qui brille.", "Complétez les paroles :", "(A)Argent", "(B)Or", "2"],
 ["En quelle année s'achève la construction de la basilique Notre Dame de la Garde ?", "Réponse :", "(A)1897", "(B)1898", "1"],
-["Quel est le nom de scène du célèbre rappeur du groupe IAM ?", "Réponse :", "(A)Toutânkhamon", "(B)Akhenaton", "2"],
+["Quel est le nom de scène du célèbre rappeur du groupe IAM ?", "Réponse :", "(A)Ramses", "(B)Akhenaton", "2"],
 ["Si vous terminez une partie de pétanque avec 0 points, vous êtes...", "Réponse :", "(A)Didier", "(B)Fanny", "2"],
 ["Dans quel arrondissement se trouve le Mucem ?", "Réponse :", "(A)1er", "(B)2ème", "2"],
 ["Quelle station de métro portant le nom d'une fleur fait partie de la ligne 1 du métro ?", "Réponse :", "(A)La rose", "(B)La lavande", "1"],
-["Quel nom de président américain porte la Corniche qui longe le bord de mer ?", "Réponse :", "(A)Franklin D. Roosevelt", "(B)John F. Kennedy", "2"],
+["Quel nom de président américain porte la Corniche qui longe le bord de mer ?", "Réponse :", "(A)Roosevelt", "(B)Kennedy", "2"],
 ["En quelle année, l'Olympique de Marseille a-t-il gagné la Ligue des Champions en Football ?", "Réponse :", "(A)1993", "(B)1994", "1"]
 ]
 let mySprite = sprites.create(img`
@@ -190,7 +203,7 @@ scene.setBackgroundImage(img`
     bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
     `)
 mySprite.setFlag(SpriteFlag.StayInScreen, true)
-info.setScore(60)
+info.setScore(100)
 game.onUpdateInterval(750, function () {
     ennemi = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -215,7 +228,110 @@ game.onUpdateInterval(750, function () {
 })
 game.onUpdateInterval(1000, function () {
     info.changeScoreBy(-1)
-    list = 0
+})
+game.onUpdateInterval(60000, function () {
+    timer.after(60000, function () {
+        drapeau = sprites.create(img`
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            `, SpriteKind.arrivé)
+        d2 = sprites.create(img`
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            `, SpriteKind.arrivé)
+        d3 = sprites.create(img`
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            `, SpriteKind.arrivé)
+        d4 = sprites.create(img`
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            `, SpriteKind.arrivé)
+        d5 = sprites.create(img`
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            f f f f f 1 1 1 1 1 1 f f f f f 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            1 1 1 1 1 f f f f f f 1 1 1 1 1 
+            `, SpriteKind.arrivé)
+        drapeau.setPosition(150, 30)
+        d2.setPosition(150, 50)
+        d3.setPosition(150, 70)
+        d4.setPosition(150, 90)
+        d5.setPosition(150, 110)
+        drapeau.vx = -50
+        d2.vx = -50
+        d3.vx = -50
+        d4.vx = -50
+        d5.vx = -50
+    })
 })
 forever(function () {
     if (info.score() <= 0) {
@@ -223,84 +339,86 @@ forever(function () {
     }
 })
 game.onUpdateInterval(10000, function () {
-    e1 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . 3 3 3 3 3 3 3 3 . . . . 
-        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
-        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
-        . 3 c c d d d d d d 3 c c d 3 d 
-        . 3 c 3 a a a a a a a b c d 3 3 
-        . 3 3 a b b a b b b a a b d 3 3 
-        . 3 a b b b a b b b b a 3 3 3 3 
-        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
-        . a a a a a a f a a a f a 3 d d 
-        . a a a a a a f a a f a a a 3 d 
-        . a a a a a a f f f a a a a a a 
-        . a f f f f a a a a f f f a a a 
-        . . f f f f f a a f f f f f a . 
-        . . . f f f . . . . f f f f . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy2)
-    e2 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . 3 3 3 3 3 3 3 3 . . . . 
-        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
-        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
-        . 3 c c d d d d d d 3 c c d 3 d 
-        . 3 c 3 a a a a a a a b c d 3 3 
-        . 3 3 a b b a b b b a a b d 3 3 
-        . 3 a b b b a b b b b a 3 3 3 3 
-        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
-        . a a a a a a f a a a f a 3 d d 
-        . a a a a a a f a a f a a a 3 d 
-        . a a a a a a f f f a a a a a a 
-        . a f f f f a a a a f f f a a a 
-        . . f f f f f a a f f f f f a . 
-        . . . f f f . . . . f f f f . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy2)
-    e3 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . 3 3 3 3 3 3 3 3 . . . . 
-        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
-        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
-        . 3 c c d d d d d d 3 c c d 3 d 
-        . 3 c 3 a a a a a a a b c d 3 3 
-        . 3 3 a b b a b b b a a b d 3 3 
-        . 3 a b b b a b b b b a 3 3 3 3 
-        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
-        . a a a a a a f a a a f a 3 d d 
-        . a a a a a a f a a f a a a 3 d 
-        . a a a a a a f f f a a a a a a 
-        . a f f f f a a a a f f f a a a 
-        . . f f f f f a a f f f f f a . 
-        . . . f f f . . . . f f f f . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy2)
-    e4 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . 3 3 3 3 3 3 3 3 . . . . 
-        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
-        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
-        . 3 c c d d d d d d 3 c c d 3 d 
-        . 3 c 3 a a a a a a a b c d 3 3 
-        . 3 3 a b b a b b b a a b d 3 3 
-        . 3 a b b b a b b b b a 3 3 3 3 
-        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
-        . a a a a a a f a a a f a 3 d d 
-        . a a a a a a f a a f a a a 3 d 
-        . a a a a a a f f f a a a a a a 
-        . a f f f f a a a a f f f a a a 
-        . . f f f f f a a f f f f f a . 
-        . . . f f f . . . . f f f f . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy2)
-    e1.setPosition(150, 30)
-    e2.setPosition(150, 55)
-    e3.setPosition(150, 85)
-    e4.setPosition(150, 110)
-    e1.vx = -50
-    e2.vx = -50
-    e3.vx = -50
-    e4.vx = -50
+    timer.after(5000, function () {
+        e1 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . 3 3 3 3 3 3 3 3 . . . . 
+            . . . 3 d 3 3 3 3 3 3 c 3 . . . 
+            . . 3 c d 3 3 3 3 3 3 c c 3 . . 
+            . 3 c c d d d d d d 3 c c d 3 d 
+            . 3 c 3 a a a a a a a b c d 3 3 
+            . 3 3 a b b a b b b a a b d 3 3 
+            . 3 a b b b a b b b b a 3 3 3 3 
+            . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
+            . a a a a a a f a a a f a 3 d d 
+            . a a a a a a f a a f a a a 3 d 
+            . a a a a a a f f f a a a a a a 
+            . a f f f f a a a a f f f a a a 
+            . . f f f f f a a f f f f f a . 
+            . . . f f f . . . . f f f f . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Enemy2)
+        e2 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . 3 3 3 3 3 3 3 3 . . . . 
+            . . . 3 d 3 3 3 3 3 3 c 3 . . . 
+            . . 3 c d 3 3 3 3 3 3 c c 3 . . 
+            . 3 c c d d d d d d 3 c c d 3 d 
+            . 3 c 3 a a a a a a a b c d 3 3 
+            . 3 3 a b b a b b b a a b d 3 3 
+            . 3 a b b b a b b b b a 3 3 3 3 
+            . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
+            . a a a a a a f a a a f a 3 d d 
+            . a a a a a a f a a f a a a 3 d 
+            . a a a a a a f f f a a a a a a 
+            . a f f f f a a a a f f f a a a 
+            . . f f f f f a a f f f f f a . 
+            . . . f f f . . . . f f f f . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Enemy2)
+        e3 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . 3 3 3 3 3 3 3 3 . . . . 
+            . . . 3 d 3 3 3 3 3 3 c 3 . . . 
+            . . 3 c d 3 3 3 3 3 3 c c 3 . . 
+            . 3 c c d d d d d d 3 c c d 3 d 
+            . 3 c 3 a a a a a a a b c d 3 3 
+            . 3 3 a b b a b b b a a b d 3 3 
+            . 3 a b b b a b b b b a 3 3 3 3 
+            . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
+            . a a a a a a f a a a f a 3 d d 
+            . a a a a a a f a a f a a a 3 d 
+            . a a a a a a f f f a a a a a a 
+            . a f f f f a a a a f f f a a a 
+            . . f f f f f a a f f f f f a . 
+            . . . f f f . . . . f f f f . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Enemy2)
+        e4 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . 3 3 3 3 3 3 3 3 . . . . 
+            . . . 3 d 3 3 3 3 3 3 c 3 . . . 
+            . . 3 c d 3 3 3 3 3 3 c c 3 . . 
+            . 3 c c d d d d d d 3 c c d 3 d 
+            . 3 c 3 a a a a a a a b c d 3 3 
+            . 3 3 a b b a b b b a a b d 3 3 
+            . 3 a b b b a b b b b a 3 3 3 3 
+            . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
+            . a a a a a a f a a a f a 3 d d 
+            . a a a a a a f a a f a a a 3 d 
+            . a a a a a a f f f a a a a a a 
+            . a f f f f a a a a f f f a a a 
+            . . f f f f f a a f f f f f a . 
+            . . . f f f . . . . f f f f . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Enemy2)
+        e1.setPosition(150, 30)
+        e2.setPosition(150, 55)
+        e3.setPosition(150, 85)
+        e4.setPosition(150, 110)
+        e1.vx = -50
+        e2.vx = -50
+        e3.vx = -50
+        e4.vx = -50
+    })
 })
