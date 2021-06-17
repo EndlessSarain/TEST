@@ -37,7 +37,16 @@ let e1: Sprite = null
 let list = 0
 let ennemi: Sprite = null
 let questions: string[][] = []
-questions = [["Je danse le MIA, pas de pacotille, chemise ouverte, chaîne en ???? qui brille.", "Complétez les paroles :", "(A)Argent", "(B)Or", "2"]]
+questions = [
+["Je danse le MIA, pas de pacotille, chemise ouverte, chaîne en ???? qui brille.", "Complétez les paroles :", "(A)Argent", "(B)Or", "2"],
+["En quelle année s'achève la construction de la basilique Notre Dame de la Garde ?", "Réponse :", "(A)1897", "(B)1898", "1"],
+["Quel est le nom de scène du célèbre rappeur du groupe IAM ?", "Réponse :", "(A)Toutânkhamon", "(B)Akhenaton", "2"],
+["Si vous terminez une partie de pétanque avec 0 points, vous êtes...", "Réponse :", "(A)Didier", "(B)Fanny", "2"],
+["Dans quel arrondissement se trouve le Mucem ?", "Réponse :", "(A)1er", "(B)2ème", "2"],
+["Quelle station de métro portant le nom d'une fleur fait partie de la ligne 1 du métro ?", "Réponse :", "(A)La rose", "(B)La lavande", "1"],
+["Quel nom de président américain porte la Corniche qui longe le bord de mer ?", "Réponse :", "(A)Franklin D. Roosevelt", "(B)John F. Kennedy", "2"],
+["En quelle année, l'Olympique de Marseille a-t-il gagné la Ligue des Champions en Football ?", "Réponse :", "(A)1993", "(B)1994", "1"]
+]
 let mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . 2 2 2 2 2 2 2 2 . . . . 
