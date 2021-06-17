@@ -30,9 +30,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     scene.cameraShake(4, 500)
     otherSprite.destroy()
 })
-let e7: Sprite = null
-let e6: Sprite = null
-let e5: Sprite = null
 let e4: Sprite = null
 let e3: Sprite = null
 let e2: Sprite = null
@@ -289,72 +286,12 @@ game.onUpdateInterval(10000, function () {
         . . . f f f . . . . f f f f . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Enemy2)
-    e5 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . 3 3 3 3 3 3 3 3 . . . . 
-        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
-        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
-        . 3 c c d d d d d d 3 c c d 3 d 
-        . 3 c 3 a a a a a a a b c d 3 3 
-        . 3 3 a b b a b b b a a b d 3 3 
-        . 3 a b b b a b b b b a 3 3 3 3 
-        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
-        . a a a a a a f a a a f a 3 d d 
-        . a a a a a a f a a f a a a 3 d 
-        . a a a a a a f f f a a a a a a 
-        . a f f f f a a a a f f f a a a 
-        . . f f f f f a a f f f f f a . 
-        . . . f f f . . . . f f f f . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy2)
-    e6 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . 3 3 3 3 3 3 3 3 . . . . 
-        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
-        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
-        . 3 c c d d d d d d 3 c c d 3 d 
-        . 3 c 3 a a a a a a a b c d 3 3 
-        . 3 3 a b b a b b b a a b d 3 3 
-        . 3 a b b b a b b b b a 3 3 3 3 
-        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
-        . a a a a a a f a a a f a 3 d d 
-        . a a a a a a f a a f a a a 3 d 
-        . a a a a a a f f f a a a a a a 
-        . a f f f f a a a a f f f a a a 
-        . . f f f f f a a f f f f f a . 
-        . . . f f f . . . . f f f f . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy2)
-    e7 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . 3 3 3 3 3 3 3 3 . . . . 
-        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
-        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
-        . 3 c c d d d d d d 3 c c d 3 d 
-        . 3 c 3 a a a a a a a b c d 3 3 
-        . 3 3 a b b a b b b a a b d 3 3 
-        . 3 a b b b a b b b b a 3 3 3 3 
-        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
-        . a a a a a a f a a a f a 3 d d 
-        . a a a a a a f a a f a a a 3 d 
-        . a a a a a a f f f a a a a a a 
-        . a f f f f a a a a f f f a a a 
-        . . f f f f f a a f f f f f a . 
-        . . . f f f . . . . f f f f . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Enemy2)
     e1.setPosition(150, 30)
     e2.setPosition(150, 55)
     e3.setPosition(150, 85)
     e4.setPosition(150, 110)
-    e5.setPosition(150, 70)
-    e6.setPosition(150, 42)
-    e7.setPosition(150, 95)
     e1.vx = -50
     e2.vx = -50
     e3.vx = -50
     e4.vx = -50
-    e5.vx = -50
-    e6.vx = -50
-    e7.vx = -50
 })
