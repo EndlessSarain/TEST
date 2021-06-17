@@ -1,11 +1,42 @@
-info.onCountdownEnd(function () {
-	
+namespace SpriteKind {
+    export const Enemy2 = SpriteKind.create()
+}
+function pickQuestion (num: number) {
+    if (game.ask(fruits[0][0], "" + fruits[0][1] + " ou " + fruits[0][2])) {
+        if (fruits[0][3] == "1") {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        if (fruits[0][3] == "2") {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy2, function (sprite, otherSprite) {
+    if (pickQuestion(1)) {
+        otherSprite.destroy()
+    } else {
+        otherSprite.destroy()
+        info.changeScoreBy(-5)
+    }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeScoreBy(-5)
+    scene.cameraShake(4, 500)
     otherSprite.destroy()
 })
-let ennemi: Sprite = null
+let e4: Sprite = null
+let e3: Sprite = null
+let e2: Sprite = null
+let e1: Sprite = null
 let list = 0
+let ennemi: Sprite = null
+let fruits: string[][] = []
+fruits = [["Complétez les paroles : Je danse le MIA, pas de pacotille, chemise ouverte, chaîne en ???? qui brille.", "Argent", "Or", "2"]]
 let mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . 2 2 2 2 2 2 2 2 . . . . 
@@ -150,33 +181,116 @@ scene.setBackgroundImage(img`
     `)
 mySprite.setFlag(SpriteFlag.StayInScreen, true)
 info.setScore(60)
+game.onUpdateInterval(750, function () {
+    ennemi = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . 6 6 6 6 6 6 6 6 . . . . 
+        . . . 6 9 6 6 6 6 6 6 c 6 . . . 
+        . . 6 c 9 6 6 6 6 6 6 c c 6 . . 
+        . 6 c c 9 9 9 9 9 9 6 c c 9 6 d 
+        . 6 c 6 8 8 8 8 8 8 8 b c 9 6 6 
+        . 6 6 8 b b 8 b b b 8 8 b 9 6 6 
+        . 6 8 b b b 8 b b b b 8 6 6 6 6 
+        . 8 8 6 6 6 8 6 6 6 6 6 8 6 6 6 
+        . 8 8 8 8 8 8 f 8 8 8 f 8 6 d d 
+        . 8 8 8 8 8 8 f 8 8 f 8 8 8 6 d 
+        . 8 8 8 8 8 8 f f f 8 8 8 8 8 8 
+        . 8 f f f f 8 8 8 8 f f f 8 8 8 
+        . . f f f f f 8 8 f f f f f 8 . 
+        . . . f f f . . . . f f f f . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    ennemi.setPosition(150, randint(20, 120))
+    ennemi.vx = -50
+})
 game.onUpdateInterval(1000, function () {
     info.changeScoreBy(-1)
     list = 0
 })
-game.onUpdateInterval(500, function () {
-    if (randint(0, 10) == 5) {
-    	
-    } else {
-        ennemi = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . 6 6 6 6 6 6 6 6 . . . . 
-            . . . 6 9 6 6 6 6 6 6 c 6 . . . 
-            . . 6 c 9 6 6 6 6 6 6 c c 6 . . 
-            . 6 c c 9 9 9 9 9 9 6 c c 9 6 d 
-            . 6 c 6 8 8 8 8 8 8 8 b c 9 6 6 
-            . 6 6 8 b b 8 b b b 8 8 b 9 6 6 
-            . 6 8 b b b 8 b b b b 8 6 6 6 6 
-            . 8 8 6 6 6 8 6 6 6 6 6 8 6 6 6 
-            . 8 8 8 8 8 8 f 8 8 8 f 8 6 d d 
-            . 8 8 8 8 8 8 f 8 8 f 8 8 8 6 d 
-            . 8 8 8 8 8 8 f f f 8 8 8 8 8 8 
-            . 8 f f f f 8 8 8 8 f f f 8 8 8 
-            . . f f f f f 8 8 f f f f f 8 . 
-            . . . f f f . . . . f f f f . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Enemy)
-        ennemi.setPosition(150, randint(15, 120))
-        ennemi.vx = -50
+forever(function () {
+    if (info.score() <= 0) {
+        game.over(false)
     }
+})
+game.onUpdateInterval(10000, function () {
+    e1 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . 3 3 3 3 3 3 3 3 . . . . 
+        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
+        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
+        . 3 c c d d d d d d 3 c c d 3 d 
+        . 3 c 3 a a a a a a a b c d 3 3 
+        . 3 3 a b b a b b b a a b d 3 3 
+        . 3 a b b b a b b b b a 3 3 3 3 
+        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
+        . a a a a a a f a a a f a 3 d d 
+        . a a a a a a f a a f a a a 3 d 
+        . a a a a a a f f f a a a a a a 
+        . a f f f f a a a a f f f a a a 
+        . . f f f f f a a f f f f f a . 
+        . . . f f f . . . . f f f f . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy2)
+    e2 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . 3 3 3 3 3 3 3 3 . . . . 
+        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
+        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
+        . 3 c c d d d d d d 3 c c d 3 d 
+        . 3 c 3 a a a a a a a b c d 3 3 
+        . 3 3 a b b a b b b a a b d 3 3 
+        . 3 a b b b a b b b b a 3 3 3 3 
+        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
+        . a a a a a a f a a a f a 3 d d 
+        . a a a a a a f a a f a a a 3 d 
+        . a a a a a a f f f a a a a a a 
+        . a f f f f a a a a f f f a a a 
+        . . f f f f f a a f f f f f a . 
+        . . . f f f . . . . f f f f . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy2)
+    e3 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . 3 3 3 3 3 3 3 3 . . . . 
+        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
+        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
+        . 3 c c d d d d d d 3 c c d 3 d 
+        . 3 c 3 a a a a a a a b c d 3 3 
+        . 3 3 a b b a b b b a a b d 3 3 
+        . 3 a b b b a b b b b a 3 3 3 3 
+        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
+        . a a a a a a f a a a f a 3 d d 
+        . a a a a a a f a a f a a a 3 d 
+        . a a a a a a f f f a a a a a a 
+        . a f f f f a a a a f f f a a a 
+        . . f f f f f a a f f f f f a . 
+        . . . f f f . . . . f f f f . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy2)
+    e4 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . 3 3 3 3 3 3 3 3 . . . . 
+        . . . 3 d 3 3 3 3 3 3 c 3 . . . 
+        . . 3 c d 3 3 3 3 3 3 c c 3 . . 
+        . 3 c c d d d d d d 3 c c d 3 d 
+        . 3 c 3 a a a a a a a b c d 3 3 
+        . 3 3 a b b a b b b a a b d 3 3 
+        . 3 a b b b a b b b b a 3 3 3 3 
+        . a a 3 3 3 a 3 3 3 3 3 a 3 3 3 
+        . a a a a a a f a a a f a 3 d d 
+        . a a a a a a f a a f a a a 3 d 
+        . a a a a a a f f f a a a a a a 
+        . a f f f f a a a a f f f a a a 
+        . . f f f f f a a f f f f f a . 
+        . . . f f f . . . . f f f f . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy2)
+    e1.setPosition(150, 30)
+    e2.setPosition(150, 55)
+    e3.setPosition(150, 85)
+    e4.setPosition(150, 110)
+    e1.vx = -50
+    e2.vx = -50
+    e3.vx = -50
+    e4.vx = -50
 })
