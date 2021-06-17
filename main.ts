@@ -161,5 +161,6 @@ game.onUpdateInterval(500, function () {
         . . . f f f . . . . f f f f . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Enemy)
-    ennemi.setPosition(150, Math.max(5, 80))
+    ennemi.setPosition(150, randint(15, 120))
+    ennemi.vx = -50
 })
