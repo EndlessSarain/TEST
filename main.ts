@@ -5,6 +5,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     otherSprite.destroy()
 })
 let ennemi: Sprite = null
+let list = 0
 let mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . 2 2 2 2 2 2 2 2 . . . . 
@@ -151,6 +152,7 @@ mySprite.setFlag(SpriteFlag.StayInScreen, true)
 info.setScore(60)
 game.onUpdateInterval(1000, function () {
     info.changeScoreBy(-1)
+    list = 0
 })
 game.onUpdateInterval(500, function () {
     if (randint(0, 10) == 5) {
