@@ -482,11 +482,11 @@ game.onUpdateInterval(10000, function () {
             . . . . . . . . . . . . . . . . 
             `, SpriteKind.Enemy2)
         e1.setPosition(150, 30)
-        e2.setPosition(150, 45)
+        e2.setPosition(180, 45)
         e3.setPosition(150, 60)
-        e5.setPosition(150, 75)
+        e5.setPosition(180, 75)
         e6.setPosition(150, 90)
-        e7.setPosition(150, 105)
+        e7.setPosition(180, 105)
         e4.setPosition(150, 120)
         e1.vx = -50
         e2.vx = -50
